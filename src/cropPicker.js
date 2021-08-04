@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Image } from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
+import { SafeAreaView, Image } from 'react-native';
 import Button from './components/button';
-import { STORAGE_PERMISSION, CAMERA_PERMISSION } from './utils/permissions';
+import ImagePicker from 'react-native-image-crop-picker';
 import checkPermission from './utils/permissions';
+import { STORAGE_PERMISSION, CAMERA_PERMISSION } from './utils/permissions';
+import styles from './styles';
 
 const CropPicker = ({ onClose }) => {
 
@@ -14,7 +15,6 @@ const CropPicker = ({ onClose }) => {
 		const callbackFunction = type === 'camera' ? selectedImageFromCamera : selectImageFromGallery;
 		checkPermission(requiredPermission, callbackFunction);
 	}
-
 
 	const selectedImageFromCamera = () => {
 		ImagePicker.openCamera({
@@ -34,7 +34,6 @@ const CropPicker = ({ onClose }) => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-
 			<Button
 				label={'Go Back'}
 				onPress={onClose}
@@ -53,32 +52,5 @@ const CropPicker = ({ onClose }) => {
 		</SafeAreaView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		width: '100%',
-		backgroundColor: 'grey',
-		alignItems: 'center',
-	},
-	img: {
-		width: '90%',
-		height: '50%',
-		borderRadius: 15,
-	},
-	button: {
-		width: '90%',
-		height: 60,
-		backgroundColor: 'black',
-		borderRadius: 12,
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginVertical: 15
-	},
-	buttonText: {
-		fontSize: 18,
-		color: 'white',
-	},
-});
 
 export default CropPicker;

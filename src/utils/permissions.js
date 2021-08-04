@@ -1,14 +1,12 @@
 import { Platform } from 'react-native';
 import { PERMISSIONS } from 'react-native-permissions';
 import { check, request, RESULTS, openSettings } from 'react-native-permissions';
-
 import { Alert } from 'react-native';
 
 export const isIOS = Platform.OS === 'ios';
 
 export const CAMERA_PERMISSION = isIOS ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
 export const STORAGE_PERMISSION = isIOS ? PERMISSIONS.IOS.PHOTO_LIBRARY : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
-
 
 const openAppSettings = () => {
 	Alert.alert(
@@ -26,9 +24,7 @@ const openAppSettings = () => {
 };
 
 const checkPermission = (permission, callback) => {
-	console.log('permission ')
 	check(permission).then((checkResult) => {
-		console.log('checkResult ', checkResult)
 		if (checkResult === RESULTS.DENIED || checkResult === RESULTS.UNAVAILABLE) {
 			request(permission).then((requestResult) => {
 				if (requestResult !== RESULTS.GRANTED) {

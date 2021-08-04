@@ -9,7 +9,6 @@ const Button = ({ onPress, label }) => {
 	)
 }
 
-
 const styles = StyleSheet.create({
 	button: {
 		width: '90%',
