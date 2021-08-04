@@ -21,6 +21,8 @@ const CropPicker = ({ onClose }) => {
 			mediaType: 'photo'
 		}).then(image => {
 			setImage(image?.path)
+		}).catch((err) => {
+			console.log(err);
 		});
 	};
 
@@ -29,6 +31,8 @@ const CropPicker = ({ onClose }) => {
 			mediaType: 'photo'
 		}).then(image => {
 			setImage(image?.path)
+		}).catch((err) => {
+			console.log(err);
 		});
 	}
 
