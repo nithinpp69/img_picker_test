@@ -2,10 +2,19 @@ import React, { useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Button from './components/button';
+import { STORAGE_PERMISSION, CAMERA_PERMISSION } from './utils/permissions';
+import checkPermission from './utils/permissions';
 
 const Picker = ({ onClose }) => {
 
   const [image, setImage] = useState(null);
+
+  const onSelectOption = (type) => {
+    const requiredPermission = type === 'camera' ? CAMERA_PERMISSION : STORAGE_PERMISSION;
+    const callbackFunction = type === 'camera' ? selectedImageFromCamera : selectImageFromGallery;
+    checkPermission(requiredPermission, callbackFunction);
+  }
+
 
   const selectedImageFromCamera = () => {
     launchCamera({ mediaType: 'photo', saveToPhotos: true }, res => {
@@ -36,11 +45,11 @@ const Picker = ({ onClose }) => {
       />
       <Button
         label={'Take a picture'}
-        onPress={selectedImageFromCamera}
+        onPress={() => onSelectOption('camera')}
       />
       <Button
         label={'Select from gallery'}
-        onPress={selectImageFromGallery}
+        onPress={() => onSelectOption('photo')}
       />
 
       {image && (
