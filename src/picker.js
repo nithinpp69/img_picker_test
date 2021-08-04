@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import Button from './components/button';
 
-const Picker = () => {
+const Picker = ({ onClose }) => {
 
   const [image, setImage] = useState(null);
 
@@ -28,13 +29,20 @@ const Picker = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={selectedImageFromCamera}>
-        <Text style={styles.buttonText}>Take a picture</Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={selectImageFromGallery} resize>
-        <Text style={styles.buttonText}>Select from gallery</Text>
-      </TouchableOpacity>
+      <Button
+        label={'Go Back'}
+        onPress={onClose}
+      />
+      <Button
+        label={'Take a picture'}
+        onPress={selectedImageFromCamera}
+      />
+      <Button
+        label={'Select from gallery'}
+        onPress={selectImageFromGallery}
+      />
+
       {image && (
         <Image source={{ uri: image }} style={styles.img} resizeMode={'cover'} />
       )}
